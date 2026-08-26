@@ -6,6 +6,7 @@ class Program
     {
         // Deklarera en variabel för aktuellt saldo...
         int balance;
+        
         // Insättning...
         Console.WriteLine("Hur mycket vill du sätta in?");
         // Deklarera en variabel för insättningen...
@@ -25,9 +26,35 @@ class Program
         amount = Console.ReadLine();
         Console.WriteLine($"Du vill ta ut {amount} Kr");
 
+       if( CheckBalance(balance, int.Parse(amount)))
+        {
+            Console.WriteLine($"Du har tillräckligt på {balance} för ditt utagg");
+        } else
+        {
+            Console.WriteLine($"Du har för lite på {balance} för att göra ditt uttag");
+             Environment.Exit(0);
+        }
+       
         balance -= int.Parse(amount);
         // balance = balance - int.Parse(amount);
 
         Console.WriteLine($"Du har {balance} på ditt konto");
     }
+    static bool CheckBalance( int balance, int amount)
+
+    {
+      if(balance < amount )
+        {
+           
+            return false;
+        }  else
+        {
+           
+            return true;
+        }
+
+
+
+    } 
 }
+
