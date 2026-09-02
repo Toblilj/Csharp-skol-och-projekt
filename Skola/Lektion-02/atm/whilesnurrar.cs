@@ -36,8 +36,10 @@ static void Main()
             }
             else if (key == "d")
             {
-                Console.WriteLine("Hur mycket vill du sätta in?");
-                var amount = Console.ReadLine();
+                //här vill vi sätta deposit metoden sen
+                // Console.WriteLine("Hur mycket vill du sätta in?");
+                // var amount = Console.ReadLine();
+                deposit
 
                 if (string.IsNullOrWhiteSpace(amount))
                 {
@@ -58,6 +60,7 @@ static void Main()
             }
             else if (key == "w")
             {
+                //här sätter vi withdraw metoden
                 Console.WriteLine("Hur mycket vill du ta ut?");
                 var amount = Console.ReadLine();
 
@@ -79,17 +82,9 @@ static void Main()
                 }
             } else if (key == "b")
             {
-                var saldo =  balance;
-                Console.WriteLine($"Du har såhär mycket i ditt saldo {saldo}");
-                Environment.Exit(0);
-            } 
-
-
-
-
-
-
-            else
+               Console.WriteLine($"Du har såhär mycket i ditt saldo {balance}");
+                
+            } else
             {
                 Console.WriteLine("Jag förstår inte ditt val");
                 Environment.Exit(0);
@@ -102,8 +97,53 @@ static void Main()
     {
         Console.WriteLine($"Du har {balance} på ditt konto");
     }
-//  Skapa metoder för att kunna sätta in och ta ut pengar som anropas ifrån vår while loop
+        //  Skapa metoder för att kunna sätta in och ta ut pengar som anropas ifrån vår while loop
 
-    static void Deposit() { }
-    static void WithDraw() { }
+        //ändrar till static int istället för void då jag vill retunera något till min main metod.
+    static int Deposit( int  currentBalance)
+    {
+         Console.WriteLine("Hur mycket vill du sätta in?");
+                var amount = Console.ReadLine();
+
+                if(int.TryParse(amount, out int depositAmount)){
+            int newBalance = currentBalance + depositAmount;
+
+            Console.WriteLine($"Efter din insättning har du nu {newBalance}");
+                }
+                else
+        {
+              Console.WriteLine($"Du har såhär mycket i ditt saldo {currentBalance}");
+              Console.WriteLine("Jag förstår inte ditt val");
+                Environment.Exit(0);
+        }    
+            return currentBalance;
+
+            
+        
+
+    }
+    static int WithDraw( int negBalance)
+    {
+        Console.WriteLine("Hur mycket vill du ta ut?");
+                var amount = Console.ReadLine();
+
+                if(int.TryParse(amount, out int withdrawAmount)){
+            int newBalance = negBalance - withdrawAmount;
+
+            Console.WriteLine($"Efter ditt uttag har du nu {newBalance}");
+                }
+                else
+        {
+              Console.WriteLine($"Du har såhär mycket i ditt saldo {negBalance}");
+              Console.WriteLine("Jag förstår inte ditt val");
+                Environment.Exit(0);a
+        }    
+             return negBalance;
+
+    }
+       
+
+
+
 }
+            
