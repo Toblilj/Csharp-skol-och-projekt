@@ -39,47 +39,49 @@ static void Main()
                 //här vill vi sätta deposit metoden sen
                 // Console.WriteLine("Hur mycket vill du sätta in?");
                 // var amount = Console.ReadLine();
-                deposit
+                balance=Deposit (balance);
 
-                if (string.IsNullOrWhiteSpace(amount))
-                {
-                    Console.WriteLine("Du måste ange ett heltals belopp som du vill sätta in!");
-                    Environment.Exit(0);
-                }
+                // if (string.IsNullOrWhiteSpace(amount))
+                // {
+                //     Console.WriteLine("Du måste ange ett heltals belopp som du vill sätta in!");
+                //     Environment.Exit(0);
+                // }
 
-                if (int.TryParse(amount, out int result))
-                {
-                    balance += result;
-                    DisplayBalance(balance);
-                }
-                else
-                {
-                    Console.WriteLine("Tyvärr förstår inte jag vad du menar");
-                    Environment.Exit(0);
-                }
+                // if (int.TryParse(amount, out int result))
+                // {
+                //     balance += result;
+                //     DisplayBalance(balance);
+                // }
+                // else if
+                // {
+                //     Console.WriteLine("Tyvärr förstår inte jag vad du menar");
+                //     Environment.Exit(0);
+                // }
             }
             else if (key == "w")
             {
                 //här sätter vi withdraw metoden
-                Console.WriteLine("Hur mycket vill du ta ut?");
-                var amount = Console.ReadLine();
+                // Console.WriteLine("Hur mycket vill du ta ut?");
+                // var amount = Console.ReadLine();
+                balance= WithDraw(balance);
 
-                if (string.IsNullOrWhiteSpace(amount))
-                {
-                    Console.WriteLine("Du måste ange ett heltals belopp som du vill ta ut!");
-                    Environment.Exit(0);
-                }
 
-                if (int.TryParse(amount, out int result))
-                {
-                    balance -= result;
-                    DisplayBalance(balance);
-                }
-                else
-                {
-                    Console.WriteLine("Tyvärr förstår inte jag vad du menar");
-                    Environment.Exit(0);
-                }
+                // if (string.IsNullOrWhiteSpace(amount))
+                // {
+                //     Console.WriteLine("Du måste ange ett heltals belopp som du vill ta ut!");
+                //     Environment.Exit(0);
+                // }
+
+                // if (int.TryParse(amount, out int result))
+                // {
+                //     balance -= result;
+                //     DisplayBalance(balance);
+                // }
+                // else
+                // {
+                //     Console.WriteLine("Tyvärr förstår inte jag vad du menar");
+                //     Environment.Exit(0);
+                // }
             } else if (key == "b")
             {
                Console.WriteLine($"Du har såhär mycket i ditt saldo {balance}");
@@ -136,7 +138,7 @@ static void Main()
         {
               Console.WriteLine($"Du har såhär mycket i ditt saldo {negBalance}");
               Console.WriteLine("Jag förstår inte ditt val");
-                Environment.Exit(0);a
+                Environment.Exit(0);
         }    
              return negBalance;
 
