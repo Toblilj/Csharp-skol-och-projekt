@@ -5,8 +5,24 @@ class Progam
     
 static void Main()
     {
-        int [] numbers = new int [5];
-        Console.WriteLine(numbers.Length);
+        
+
+        //detta är en kö!
+       Queue<string> comics = new Queue<string>();
+
+       comics.Enqueue("Fantomen");
+       comics.Enqueue("läderlappen");
+       comics.Enqueue("X9");
+
+        foreach (var comic in comics)
+        {
+            Console.WriteLine("Queue -----------------------------------");
+        }
+
+
+
+
+
     }
 
 
