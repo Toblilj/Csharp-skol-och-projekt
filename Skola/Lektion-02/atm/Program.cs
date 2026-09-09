@@ -6,7 +6,8 @@ class Program
     // Deklarera en variabel för aktuellt saldo...
     static int balance = 0;
     // Deklarera en variabel för transaktioner...
-    static List<Transaction> Transactions = new List<Transaction>();
+    static List<WestcoastBank.Transaction> transactions = [];
+    // static List<Transaction> transactions = new List<Transaction>();
     static string? amount = null;
     static void Main()
     {
@@ -18,7 +19,7 @@ class Program
         Console.WriteLine("För att sätta in pengar tryck på tangenent 'd'");
         Console.WriteLine("För att ta ut pengar tryck på tangenten 'w'");
         Console.WriteLine("För att visa saldot tryck på tangenten 'b'");
-        Console.WriteLine("För att visa transaktioner tryck på tangenten 't'");
+        Console.WriteLine("För att visa transaktion tryck på tangenten 't'");
         Console.WriteLine("------------------------------------------------------------------");
 
         App();
@@ -72,7 +73,6 @@ class Program
                             // continue;
                         }
 
-
                         WithDraw(amount);
                         break;
                     case "x":
@@ -105,10 +105,10 @@ class Program
 
     static void DisplayTransactions()
     {
-        foreach (var tran in Transactions)
+        foreach (var tran in transactions)
         {
-            Console.WriteLine(tran);
-        } 
+            Console.WriteLine(tran.GetTransactionInfo());
+        }
     }
 
     static void Deposit(string amount)
@@ -119,24 +119,32 @@ class Program
         }
 
         balance += result;
- Transactions.Add(new Transaction(DateTime.Now, "insättning", result));    }
+        var tran = new WestcoastBank.Transaction();
+        tran.transactionDate = DateTime.Now;
+        tran.transactionValue = result;
+        tran.transactionType = "Insättning";
+
+        transactions.Add(tran);
+        // transactions.Add($"Transaktionsdatum: {DateTime.Now} - Transaktionstyp: insättning - Transaktionvärde: {result}");
+    }
     static void WithDraw(string amount)
     {
         if (int.TryParse(amount, out int result))
         {
             // Kontrollera att saldot är tillräckligt...
             balance -= result;
-            Transactions.Add(new Transaction(DateTime.Now, "uttag", result));
+
+            var tran = new WestcoastBank.Transaction();
+            tran.transactionDate = DateTime.Now;
+            tran.transactionValue = result;
+            tran.transactionType = "Uttag";
+
+            transactions.Add(tran);
+            // transactions.Add($"datum: {DateTime.Now} - Transaktionstyp: uttag - Transaktionvärde: {result}");
         }
         else
         {
             throw new Exception("Tyvärr förstår inte jag vad du menar");
         }
     }
-
 }
-
-public record Transaction(DateTime Date, string type, int amount)
-{
-  
-};
