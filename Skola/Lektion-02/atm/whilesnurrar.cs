@@ -1,165 +1,185 @@
 
-// namespace whilesnurrar;
-// class Program
-// {
+namespace skånskaBanken;
 
 
-// static void Main()
-// {
 
 
-// //Skapa ett meny alternativ för att visa saldot på kontot X 
-// // Lägg till logik i main metoden för att lyssna på tangenten för visa saldo X
-// //Skapa så man kommer tillbaka till menynen efter man gjort sättit in/tagit ut pengar/kollat sitt saldo X
-// //Inkludera så programmet sparar ditt saldo, hantera återkommande kund/ny kund, dvs värde om du har föregående saldo på banken eller ej.
-// //Lägg till fel hantering X
-// //Lägg till för att se transaktionshistorik
-// //lägg till logik för att avsluta x (halvklar)
-
-// Console.WriteLine("välkomen till skånska banken");
+//Inkludera så programmet sparar ditt saldo, hantera återkommande kund/ny kund, dvs värde om du har föregående saldo på banken eller ej.
+//information måste läggas till
+//registrera uppgifter (kund) måste läggas till.---Hur gör jag detta? Jag har ju variabler i mitt account objekt för att sparar värden till ett konto men inget som sätter värdet på dom. 
 
 
-// try
-// {
-//     // Deklarera en variabel för aktuellt saldo...
-//     int balance = 0;
-//     static List<int> transactions = [];
-//     // List<int> transactions = new List<int>();
-//      string? amount = null;
 
-//     while (true)
-//     {
-//         PrintMenu();
-//         //tar user input
-//         var key = Console.ReadLine();
-
-//         switch (key)
-//         {
-//             case "d":
-//                 balance = Deposit(balance);
-//    if (string.IsNullOrWhiteSpace(amount))
-//                         {
-//                             throw new Exception("Du måste ange ett heltals belopp som du vill sätta in!");
-//                             // Console.WriteLine("Du måste ange ett heltals belopp som du vill sätta in!, försök igen");
-//                             // continue;
-//                         }
-//                 break;
-
-//             case "w":
-//                 balance = WithDraw(balance);
-
-//                 //ha en if-else här för throw new exception om man försöker ta ut mer än man har på kontot. isnullorwhitespace
-//                 //krashar här vid fel input   
-//                    if (string.IsNullOrWhiteSpace(amount))
-//                         {
-//                             throw new Exception("Du måste ange ett heltals belopp som du vill sätta in!");
-//                             // Console.WriteLine("Du måste ange ett heltals belopp som du vill sätta in!, försök igen");
-//                             // continue;
-//                         }  
-//                 break;
-
-//             case "b":
-//                 Console.WriteLine($"Du har såhär mycket i ditt saldo {DisplayBalance(balance)}");
-
-//                 break;
-
-//             case "t":
-//                transactions();
-//                break; 
-
-
-//             case "x":
-//                 Environment.Exit(0);
-//                 break;
-
-//             default:
-//                 Console.WriteLine("Fel input-välj annat i menyn");
-//                 break;
-//         }
-
-//     }
-// }
-
-
-// catch (Exception ex)
-// {
-//     Console.ForegroundColor= ConsoleColor.Red;
-//     Console.WriteLine(ex.Message);
+class Program
+{
+    //kallar på en kopia av vår account class i BankAccountTwo filen
+    static Account account = new Account();
     
-// }
-// finally
-// {
-//     Console.WriteLine("klar!");
-// }
+ // Deklarera en variabel för aktuellt saldo...
 
-// }
+    static int balance = 0;
+          static   List<int> transactions = [];
+   
+
+    //denna får ha värdet null och den ligger utanför allt för att vara tillgänglig till allt i min main metod.
+      static string? amount = null;
+
+static void Main()
+{
+
+
+Console.WriteLine("välkomen till skånska banken");
+
+    App();
+
+     
+
+
+}
+
+
+
 
 
 
 
 // //Metoder ||-.........................................................................................................
 
-// // Enkel metod för att skriva ut saldot...
-// static int DisplayBalance(int balance)
-// {
 
-//     Console.WriteLine($"Du har {balance} på ditt konto");
-//     return balance;
-// }
+static void App()
+{
+             //allt detta vill vi bygga in i en metod så vi bara gör ett metodanrop i vår main metod. 
+        try
+            {
+    while (true)
+    {
+        PrintMenu();
+        //tar user input
+        var key = Console.ReadLine();
 
+        switch (key)
+        {
+            //case för deposit 
+            case "d":
+        //bygg upp caset med att först ta user input i en variabel det vill säga amount.
+        Console.WriteLine("Hur mycket vill du sätta in? ");
+        amount=Console.ReadLine();
 
-// //ändrar till static int istället för void då jag vill retunera något till min main metod.
-// static int Deposit(int currentBalance)
-// {
-//     Console.WriteLine("Hur mycket vill du sätta in?");
-//     var amount = Console.ReadLine();
+            if (int.TryParse(amount, out int depositAmount))
+        {
+            balance = Account.Deposit(balance,depositAmount);
+            //såhär behöver jag ta min användares input (amount) konvertera det ifrån en sträng till en int, som sedan skickas till min deposit metod och lägger till i currentBalance grejen och skickas tillbaka. 
+            }
+        else
+        {
+            throw new Exception("Din inmatning får enbart vara heltal");
+            }
+                break;
+ 
+                
 
-//     if (int.TryParse(amount, out int depositAmount))
-//     {
-//         int newBalance = currentBalance + depositAmount;
-//         Console.WriteLine($"Efter din insättning har du nu {newBalance}");
-//         return newBalance;
-//     }
-//     else
-//     {
-//        throw new Exception("Din inmatning får enbart vara heltal");
-//     }
+            case "w":
 
+               Console.WriteLine("Hur mycket vill du ta ut?");
+                        amount = Console.ReadLine();
+                  if (int.TryParse(amount, out int newAmount))
+        {
+            balance = Account.WithDraw(balance,newAmount);
+            //såhär behöver jag ta min användares input (amount) konvertera det ifrån en sträng till en int, som sedan skickas till min deposit metod och lägger till i currentBalance grejen och skickas tillbaka. 
+            }
+        else
+        {
+            throw new Exception("Din inmatning får enbart vara heltal");
+            }
 
+              
+                break;
 
+            case "b":
+                Console.WriteLine($"Du har såhär mycket i ditt saldo {DisplayBalance(balance)}");
 
+                break;
 
-// }
-// static int WithDraw(int negBalance)
-// {
-//     Console.WriteLine("Hur mycket vill du ta ut?");
-//     var amount = Console.ReadLine();
-
-//     if (int.TryParse(amount, out int withdrawAmount))
-//     {
-//         int newBalance = negBalance - withdrawAmount;
-
-//         Console.WriteLine($"Efter ditt uttag har du nu {newBalance}");
-//         return newBalance;
-//     }
-//     else
-//     {
-//         throw new Exception("Din inmatning får enbart vara heltal");
-//     }
-
-
-// }
-
-// static void PrintMenu()
-// {
-//     Console.WriteLine("-------------------------------------------------------------------");
-//     Console.WriteLine("meny alternativ");
-//     Console.WriteLine("för att avsluta programmet tryck på tangent X");
-//     Console.WriteLine("för att sätta in pengar  tryck på tangent d");
-//     Console.WriteLine("för att ta ut pengar  tryck på tangent w");
-//     Console.WriteLine("för att visa saldo  tryck på tangent b");
-//     Console.WriteLine("-------------------------------------------------------------------");
-// }
+            case "t":
+            //    transactions(); 
+               break; 
 
 
-// }
+            case "x":
+                Environment.Exit(0);
+                break;
+
+            default:
+                Console.WriteLine("Fel input-välj annat i menyn");
+                break;
+        }
+
+    }
+}
+
+
+catch (Exception ex)
+{
+    Console.ForegroundColor= ConsoleColor.Red;
+    Console.WriteLine(ex.Message);
+    
+}
+finally
+{
+    Console.WriteLine("klar!");
+}
+
+}
+
+
+//Metod för registrering av konto där vi hanterar att dom skriver in rätt data, och checkar att alla 3 fält har fyllts i och sedan felhanterar efter vid fel input, dvs vi hanterar det igenom throw och isnullorwhitespace.
+static void RegisterAccount()
+    {
+        Console.WriteLine("Ange ditt kontonumer följt av förnamn och efternamn");
+        //vi använder string? här för att värdet kan vara null, dvs tomt. den får lov att vara det. 
+        string? info=Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(info))
+        {
+            var result=info.Split("");
+            if(result.Length != 3)
+            {
+                throw new Exception("Du måste mata in uppgifterna med mellanslag");
+            }
+
+             account.accountNumber=result[0];
+        account.firstName=result[1];
+        account.lastName=result[2];
+        }
+       
+    }
+
+    
+// Enkel metod för att skriva ut saldot...
+static int DisplayBalance(int balance)
+{
+
+    Console.WriteLine($"Du har {balance} på ditt konto");
+    return balance;
+}
+
+static void Deposit(string amount)
+    {
+        
+    }
+
+
+static void PrintMenu()
+{
+    Console.WriteLine("-------------------------------------------------------------------");
+    Console.WriteLine("meny alternativ");
+    Console.WriteLine("för att avsluta programmet tryck på tangent X");
+    Console.WriteLine("för att sätta in pengar  tryck på tangent d");
+    Console.WriteLine("för att ta ut pengar  tryck på tangent w");
+    Console.WriteLine("för att visa saldo  tryck på tangent b");
+    Console.WriteLine("För att registrera uppgifter tryck på k");
+     Console.WriteLine("För att se transaktioner tryck på t");
+    Console.WriteLine("-------------------------------------------------------------------");
+}
+
+}
+
