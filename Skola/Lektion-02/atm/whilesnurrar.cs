@@ -138,6 +138,7 @@ static void RegisterAccount()
         Console.WriteLine("Ange ditt kontonumer följt av förnamn och efternamn");
         //vi använder string? här för att värdet kan vara null, dvs tomt. den får lov att vara det. 
         string? info=Console.ReadLine();
+        //if check för tom inmatning,spaces eller om vi får något som är mindre än 3 strängar. 
         if (!string.IsNullOrWhiteSpace(info))
         {
             var result=info.Split("");
@@ -145,7 +146,7 @@ static void RegisterAccount()
             {
                 throw new Exception("Du måste mata in uppgifterna med mellanslag");
             }
-
+            //passerar vi checken här så skickar vi in datan ifrån info in till result som är som en array.
              account.accountNumber=result[0];
         account.firstName=result[1];
         account.lastName=result[2];
@@ -162,11 +163,22 @@ static int DisplayBalance(int balance)
     return balance;
 }
 
-static void Deposit(string amount)
+   static void Deposit(string amount)
     {
-        
+        if (!int.TryParse(amount, out int result))
+        {
+            throw new Exception("Kan inte tolka din inmatning som heltal");
+        }
+        account.Deposit(result);
     }
-
+    public void WithDraw(string amount)
+    {
+        if (!int.TryParse(amount, out int result))
+        {
+            throw new Exception("Tyvärr förstår inte jag vad du menar");
+        }
+        account.WithDraw(result);
+    }
 
 static void PrintMenu()
 {

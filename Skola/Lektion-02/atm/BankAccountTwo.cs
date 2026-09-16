@@ -26,7 +26,7 @@ public string accountNumber="";
      public int pinNumber;
    
 int balance; 
-
+ 
 List <Transaction> transactions=[]; 
 
 
@@ -34,18 +34,19 @@ public void Deposit(int amount)
 {
    //tar balance och adderar till amount.
     balance += amount;
-     AddTransactions();
+     AddTransactions(amount, TransactionTypeEnum.Insättning);
       }
-static int WithDraw(int balance, int amount)
+public void WithDraw( int amount)
 {
  //sätter vi checken först, om balance är mindre än amount så kastar vi ett fel annars går vi ur till nästa steg.
        if(balance < amount)
         {
             throw new Exception("Du har för lite på kontot för att göra ditt uttag, sätt in mer pengar och försök igen.");
         }
-         //utanför min loop.
-    balance -= amount; 
-     return balance;
+        //utanför min loop.
+        balance -= amount;
+        AddTransactions(amount, TransactionTypeEnum.Uttag);
+    
 
 
 }

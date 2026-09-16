@@ -29,6 +29,7 @@ public struct Customer
     }
 }
 
+
 public string GetFullName()
     {
         return $"{firstName} {lastName} ";
