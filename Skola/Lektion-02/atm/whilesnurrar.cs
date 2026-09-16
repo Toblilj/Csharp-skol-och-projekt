@@ -59,21 +59,13 @@ static void App()
 
         switch (key)
         {
-            //case för deposit 
+         
             case "d":
-        //bygg upp caset med att först ta user input i en variabel det vill säga amount.
+      
         Console.WriteLine("Hur mycket vill du sätta in? ");
         amount=Console.ReadLine();
 
-            if (int.TryParse(amount, out int depositAmount))
-        {
-            balance = Account.Deposit(balance,depositAmount);
-            //såhär behöver jag ta min användares input (amount) konvertera det ifrån en sträng till en int, som sedan skickas till min deposit metod och lägger till i currentBalance grejen och skickas tillbaka. 
-            }
-        else
-        {
-            throw new Exception("Din inmatning får enbart vara heltal");
-            }
+         Deposit(amount);
                 break;
  
                 
@@ -82,15 +74,7 @@ static void App()
 
                Console.WriteLine("Hur mycket vill du ta ut?");
                         amount = Console.ReadLine();
-                  if (int.TryParse(amount, out int newAmount))
-        {
-            balance = Account.WithDraw(balance,newAmount);
-            //såhär behöver jag ta min användares input (amount) konvertera det ifrån en sträng till en int, som sedan skickas till min deposit metod och lägger till i currentBalance grejen och skickas tillbaka. 
-            }
-        else
-        {
-            throw new Exception("Din inmatning får enbart vara heltal");
-            }
+               WithDraw(amount);
 
               
                 break;
@@ -101,13 +85,19 @@ static void App()
                 break;
 
             case "t":
-            //    transactions(); 
+         DisplayTransactions();
                break; 
 
 
             case "x":
                 Environment.Exit(0);
                 break;
+
+
+             case "k":
+                RegisterAccount();
+                break;
+
 
             default:
                 Console.WriteLine("Fel input-välj annat i menyn");
@@ -171,13 +161,21 @@ static int DisplayBalance(int balance)
         }
         account.Deposit(result);
     }
-    public void WithDraw(string amount)
+    static void WithDraw(string amount)
     {
         if (!int.TryParse(amount, out int result))
         {
             throw new Exception("Tyvärr förstår inte jag vad du menar");
         }
         account.WithDraw(result);
+    }
+
+       static void DisplayTransactions()
+    {
+        foreach (var tran in account.transactions)
+        {
+            Console.WriteLine(tran.GetTransactionInfo());
+        }
     }
 
 static void PrintMenu()

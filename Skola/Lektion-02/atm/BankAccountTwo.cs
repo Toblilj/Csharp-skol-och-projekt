@@ -61,7 +61,7 @@ private void AddTransactions(int amount, TransactionTypeEnum transactionType)
       //vi skapar ny information här som pushas till vårt objekt vi skapat som med informationen vi har deklarerat.
     var tran= new Transaction();
         tran.transactionValue=amount;
-        tran.transactionType="Insättning";
+        tran.transactionType=transactionType; //Här har vi samma för att ha ett dynamisk värde och inte ett hårdkodat ett.
         tran.transactionDate=DateTime.Now;
         //efter att vi här har skapat en transaktion med dessa variabler för uttag/insättning så behöver vi lägga till datan i vårat accoun obejct 
         //vlket vi gör överst.
@@ -102,7 +102,7 @@ public class Transaction
 public DateTime transactionDate;
 
 public int transactionValue;
-public String transactionType;
+public TransactionTypeEnum  transactionType;
 
 
 //här hämtar vi transaktionerna.
