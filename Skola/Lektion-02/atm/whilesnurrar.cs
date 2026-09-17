@@ -172,9 +172,9 @@ static int DisplayBalance(int balance)
 
        static void DisplayTransactions()
     {
-        foreach (var tran in account.transactions)
+        foreach (var tran in account.Transaction)
         {
-            Console.WriteLine(tran.GetTransactionInfo());
+            Console.WriteLine(tran.getTransactions());
         }
     }
 

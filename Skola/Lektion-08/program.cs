@@ -1,13 +1,11 @@
-﻿﻿namespace atm;
+
+
+namespace atm;
 
 class Program
 {
-
-    // Deklarera en variabel för aktuellt saldo...
-    static int balance = 0;
-    // Deklarera en variabel för transaktioner...
-    static List<WestcoastBank.Transaction> transactions = [];
-    // static List<Transaction> transactions = new List<Transaction>();
+    // skapa en kopia/instans av klassen Account...
+    static Account account = new Account();
     static string? amount = null;
     static void Main()
     {
@@ -15,11 +13,12 @@ class Program
         Console.WriteLine("------------------------------------------------------------------");
         Console.WriteLine("Välkommen Westcoast Bank");
         Console.WriteLine("Meny alternativ");
+        Console.WriteLine("Ange dina uppgifter och tryck på tangent 'k'");
         Console.WriteLine("För att avsluta programmet tryck på tangenten 'x'");
         Console.WriteLine("För att sätta in pengar tryck på tangenent 'd'");
         Console.WriteLine("För att ta ut pengar tryck på tangenten 'w'");
         Console.WriteLine("För att visa saldot tryck på tangenten 'b'");
-        Console.WriteLine("För att visa transaktion tryck på tangenten 't'");
+        Console.WriteLine("För att visa info tryck på tangenten 'i'");
         Console.WriteLine("------------------------------------------------------------------");
 
         App();
@@ -41,7 +40,25 @@ class Program
 
                 switch (key)
                 {
-                    // Balance...
+                    case "i":
+                        Console.WriteLine(account.AccountInfo());
+                        break;
+                    case "k":
+                        Console.WriteLine("Ange ditt kontonummer följt av förnamn och efternamn");
+                        string? info = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(info))
+                        {
+                            var result = info.Split(" ");
+                            if (result.Length != 3)
+                            {
+                                throw new Exception("Du måste mata in uppgifterna med mellanslag mellan varje ord");
+                            }
+
+                            account.accountNumber = result[0];
+                            account.firstName = result[1];
+                            account.lastName = result[2];
+                        }
+                        break;
                     case "b":
                         DisplayBalance();
                         break;
@@ -52,8 +69,6 @@ class Program
                         if (string.IsNullOrWhiteSpace(amount))
                         {
                             throw new Exception("Du måste ange ett heltals belopp som du vill sätta in!");
-                            // Console.WriteLine("Du måste ange ett heltals belopp som du vill sätta in!, försök igen");
-                            // continue;
                         }
 
                         Deposit(amount);
@@ -69,8 +84,6 @@ class Program
                         if (string.IsNullOrWhiteSpace(amount))
                         {
                             throw new Exception("Du måste ange ett heltals belopp som du vill ta ut!");
-                            // Console.WriteLine("Du måste ange ett heltals belopp som du vill ta ut!, försök igen");
-                            // continue;
                         }
 
                         WithDraw(amount);
@@ -89,7 +102,6 @@ class Program
             Console.WriteLine(ex.Message);
             Console.ResetColor();
             App();
-            // Environment.Exit(0);
         }
         finally
         {
@@ -100,12 +112,12 @@ class Program
     // Enkel metod för att skriva ut saldot...
     static void DisplayBalance()
     {
-        Console.WriteLine($"Du har {balance} på ditt konto");
+        Console.WriteLine($"Du har {account.balance} på ditt konto");
     }
 
     static void DisplayTransactions()
     {
-        foreach (var tran in transactions)
+        foreach (var tran in account.transactions)
         {
             Console.WriteLine(tran.GetTransactionInfo());
         }
@@ -117,34 +129,14 @@ class Program
         {
             throw new Exception("Kan inte tolka din inmatning som heltal");
         }
-
-        balance += result;
-        var tran = new WestcoastBank.Transaction();
-        tran.transactionDate = DateTime.Now;
-        tran.transactionValue = result;
-        tran.transactionType = "Insättning";
-
-        transactions.Add(tran);
-        // transactions.Add($"Transaktionsdatum: {DateTime.Now} - Transaktionstyp: insättning - Transaktionvärde: {result}");
+        account.Deposit(result);
     }
     static void WithDraw(string amount)
     {
-        if (int.TryParse(amount, out int result))
-        {
-            // Kontrollera att saldot är tillräckligt...
-            balance -= result;
-
-            var tran = new WestcoastBank.Transaction();
-            tran.transactionDate = DateTime.Now;
-            tran.transactionValue = result;
-            tran.transactionType = "Uttag";
-
-            transactions.Add(tran);
-            // transactions.Add($"datum: {DateTime.Now} - Transaktionstyp: uttag - Transaktionvärde: {result}");
-        }
-        else
+        if (!int.TryParse(amount, out int result))
         {
             throw new Exception("Tyvärr förstår inte jag vad du menar");
         }
+        account.WithDraw(result);
     }
 }

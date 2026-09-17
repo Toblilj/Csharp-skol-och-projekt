@@ -9,11 +9,7 @@ namespace skånskaBanken;
 
 //vi skapar en enum utanför våra classer för den används i alla classer och då är det snyggare o renare att inte nästla den.
 //en enum är en speciell class till för att deklarera/representera en grupp av constants, dvs fasta variabler som inte förändras.
-public enum TransactionTypeEnum
-{
-    Insättning,
-    Uttag,
-}
+
 
 public class  Account()
 {
@@ -28,6 +24,9 @@ public string accountNumber="";
 int balance; 
  
 List <Transaction> transactions=[]; 
+
+
+
 
 
 public void Deposit(int amount)
@@ -51,24 +50,8 @@ public void WithDraw( int amount)
 
 }
 
-//vi samlar nu all 
 
-//skapar en privat metod som är lokal för filen/classen för att hantera skapandet av transaktioner för trans historiken.
-// använder oss av transactiontypeEnum för att basically skapa ett objekt med viss data. 
-private void AddTransactions(int amount, TransactionTypeEnum transactionType)
-    {
-           //Här skapar vi en ny insättning varje gång vi anropar deposit.
-      //vi skapar ny information här som pushas till vårt objekt vi skapat som med informationen vi har deklarerat.
-    var tran= new Transaction();
-        tran.transactionValue=amount;
-        tran.transactionType=transactionType; //Här har vi samma för att ha ett dynamisk värde och inte ett hårdkodat ett.
-        tran.transactionDate=DateTime.Now;
-        //efter att vi här har skapat en transaktion med dessa variabler för uttag/insättning så behöver vi lägga till datan i vårat accoun obejct 
-        //vlket vi gör överst.
-        transactions.Add(tran);
-    }
 
-    
 
 //Metod för att ta emot user data ifrån min RegisterAccount
 public void SetAccountDetails(string accountNumber, string firstName, string lastName)
@@ -90,26 +73,6 @@ public string AccountInfo()
     }
 
 
-} //-------------Stänger classen här!!
-
-
-
-//logiken för transaktioner.
-//här har vi variabler för Transaction som vi sedan sätter i en lista och fyller med värden på dom tomma variablerna
-public class Transaction
-{
-    
-public DateTime transactionDate;
-
-public int transactionValue;
-public TransactionTypeEnum  transactionType;
-
-
-//här hämtar vi transaktionerna.
-public string getTransactions()
-    {
-        return $"Date: {transactionDate.ToShortDateString} typ {transactionType} amount {transactionValue}";
-    }
-
+//-------------Stänger classen här!!
 
 }
