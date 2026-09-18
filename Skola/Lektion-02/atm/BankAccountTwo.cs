@@ -14,10 +14,10 @@ namespace skånskaBanken;
 public class  Account()
 {
 
-public string accountNumber="";
-    
-   public string firstName="";
-    public string lastName="";
+   public string AcountNumber {get; private set;}
+        private string firstName {get; set;}
+        private string lastName {get; set;}
+        
   
      public int pinNumber;
    
@@ -54,13 +54,14 @@ public void WithDraw( int amount)
 
 
 //Metod för att ta emot user data ifrån min RegisterAccount
-public void SetAccountDetails(string accountNumber, string firstName, string lastName)
+public void RegisterAccount(string accountNumber, string firstName, string lastName)
     {
         //vi använder this. för att ppeka specifikt på att strängen accountNumber ska sättas till variabeln som tillhör classen account. 
         //likadant på övriga 2 variabler.
-        this.accountNumber=accountNumber;
+     
         this.firstName=firstName;
-        this.lastName=lastName;
+       this.lastName=lastName;
+        this.AcountNumber=accountNumber;
     }
 
 
@@ -68,7 +69,7 @@ public void SetAccountDetails(string accountNumber, string firstName, string las
 //här vill jag skapa en sträng/metod whatever som hanterar account logik?
 public string AccountInfo()
     {
-        var info= $"Accnumber: {accountNumber} Name: {firstName} balance: {balance}";
+        var info= $"Accnumber: {AccountNumber} Name: {firstName} balance: {balance}";
         return info;
     }
 

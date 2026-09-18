@@ -1,5 +1,7 @@
 namespace skånskaBanken;
 
+
+//lägga i en egen class?? 
 public enum TransactionTypeEnum
 {
     Insättning,

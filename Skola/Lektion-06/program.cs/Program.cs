@@ -1,142 +1,39 @@
-﻿﻿using WestcoastBank;
+﻿﻿//skriver om denna filen för att kunna jobba med övningar för repetitioner. 
+// får kika på invoice generator biten senare. 
 
-namespace atm;
 
-class Program
+//1. Skriv en klass `Book` med fälten `title` och `author` (båda `string`).
+//2. Skriv en **konstruktor** för `Book` som tar emot båda som parametrar och sätter fälten — använd `this.` där det behövs.
+//3. Skapa två `Book`-objekt i en `Main`-metod med olika titlar, skriv ut båda.
+
+public class Book
 {
-    // skapa en kopia/instans av klassen Account...
-    static Account account = new Account();
-    static string? amount = null;
-    static void Main()
-    {
-        // Påbörjar vår meny...
-        Console.WriteLine("------------------------------------------------------------------");
-        Console.WriteLine("Välkommen Westcoast Bank");
-        Console.WriteLine("Meny alternativ");
-        Console.WriteLine("Ange dina uppgifter och tryck på tangent 'k'");
-        Console.WriteLine("För att avsluta programmet tryck på tangenten 'x'");
-        Console.WriteLine("För att sätta in pengar tryck på tangenent 'd'");
-        Console.WriteLine("För att ta ut pengar tryck på tangenten 'w'");
-        Console.WriteLine("För att visa saldot tryck på tangenten 'b'");
-        Console.WriteLine("För att visa info tryck på tangenten 'i'");
-        Console.WriteLine("------------------------------------------------------------------");
+   public String title{get; set;}
+    String author;
 
-        App();
 
-    }
+public Book(string title, string author)
+{
+    //sätter dessa värden för att kunna använda dom dynamiskt har vi t.e.x en array lr lista lr objekt med massao lika författare så 
+    //vill vi kunna hämta rätt titel och författare. och inte itne ett hårdkodat värde..
+this.title=title;
+this.author=author;
 
-    static void App()
-    {
-        try
-        {
-            while (true)
-            {
-                var key = Console.ReadLine();
-
-                if (string.IsNullOrWhiteSpace(key) || key == "x")
-                {
-                    Environment.Exit(0);
-                }
-
-                switch (key)
-                {
-                    case "i":
-                        Console.WriteLine(account.AccountInfo());
-                        break;
-                    case "k":
-                        Console.WriteLine("Ange ditt kontonummer följt av förnamn och efternamn");
-                        string? info = Console.ReadLine();
-                        if (!string.IsNullOrWhiteSpace(info))
-                        {
-                            var result = info.Split(" ");
-                            if (result.Length != 3)
-                            {
-                                throw new Exception("Du måste mata in uppgifterna med mellanslag mellan varje ord");
-                            }
-
-                            account.accountNumber = result[0];
-                            account.firstName = result[1];
-                            account.lastName = result[2];
-                        }
-                        break;
-                    case "b":
-                        DisplayBalance();
-                        break;
-                    case "d":
-                        Console.WriteLine("Hur mycket vill du sätta in?");
-                        amount = Console.ReadLine();
-
-                        if (string.IsNullOrWhiteSpace(amount))
-                        {
-                            throw new Exception("Du måste ange ett heltals belopp som du vill sätta in!");
-                        }
-
-                        Deposit(amount);
-
-                        break;
-                    case "t":
-                        DisplayTransactions();
-                        break;
-                    case "w":
-                        Console.WriteLine("Hur mycket vill du ta ut?");
-                        amount = Console.ReadLine();
-
-                        if (string.IsNullOrWhiteSpace(amount))
-                        {
-                            throw new Exception("Du måste ange ett heltals belopp som du vill ta ut!");
-                        }
-
-                        WithDraw(amount);
-                        break;
-                    case "x":
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(ex.Message);
-            Console.ResetColor();
-            App();
-        }
-        finally
-        {
-            Console.WriteLine("Klar!");
-        }
-    }
-
-    // Enkel metod för att skriva ut saldot...
-    static void DisplayBalance()
-    {
-        Console.WriteLine($"Du har {account.balance} på ditt konto");
-    }
-
-    static void DisplayTransactions()
-    {
-        foreach (var tran in account.transactions)
-        {
-            Console.WriteLine(tran.GetTransactionInfo());
-        }
-    }
-
-    static void Deposit(string amount)
-    {
-        if (!int.TryParse(amount, out int result))
-        {
-            throw new Exception("Kan inte tolka din inmatning som heltal");
-        }
-        account.Deposit(result);
-    }
-    static void WithDraw(string amount)
-    {
-        if (!int.TryParse(amount, out int result))
-        {
-            throw new Exception("Tyvärr förstår inte jag vad du menar");
-        }
-        account.WithDraw(result);
-    }
 }
+public string PageCount (get;) {
+ 
+}
+static void Main (string[] args)
+{
+    Book book1 = new Book(title, "F. Scott Fitzgerald");
+    Book book2 = new Book("To Kill a Mockingbird", "Harper Lee");
+
+    Console.WriteLine($"Book 1: {book1.title} by {book1.author}");
+    Console.WriteLine($"Book 2: {book2.title} by {book2.author}");                                                      
+}
+}
+
+//2. Lägg till en property `PageCount` som bara har `get` (ingen `set`) — 
+// sätt värdet direkt i konstruktorn.
+//3. Lägg till en property `IsAvailable` (bool) där `set` är `private` — bara klassen själv ska kunna ändra 
+//den (t.ex. via en metod `Borrow()` som sätter den till `false`).
