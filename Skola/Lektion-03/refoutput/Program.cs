@@ -3,40 +3,43 @@
 
 
 //Ref keyword, läs på om det! 
-class Program {
+
+
+class program {
 static void Main()
-{
-
-int age= 25;
-var refResult=DemoRef(ref age);
-
-Console.WriteLine($"Local age = {age}");
-Console.WriteLine($"ref age = {refResult}");
-
-int outAge;
-
-int outResult=DemoOut(age, out  outAge);
-
-Console.WriteLine($"Local age = {age}");
-Console.WriteLine($"ref age = {refResult}");
-Console.WriteLine($"out variable {outAge}");
-Console.WriteLine($"out result = {outResult}");
+    {
+          Console.WriteLine(Book.author);
+    }
 
 }
 
-static int DemoRef(ref int age)
+
+
+
+
+
+
+
+        public class Book
     {
-        age++;
-        return age;
-    }
+        public string author;
+        public string title;
 
 
-
-//out keyword,läs på! 
-static int DemoOut(int age, out int newAge)
+        public book (string author, string title)
     {
-        newAge= age;
-        newAge++;
-        return newAge;
+        this.author="johannes";
+        this.title="mitt jävla liv";
     }
+      
+
+
     }
+    
+
+
+
+
+
+  
+    

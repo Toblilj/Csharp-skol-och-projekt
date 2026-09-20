@@ -13,3 +13,4 @@ public class Transaction
         return $"Date: {transactionDate.ToShortDateString()} Type: {transactionType} Amount: {transactionValue}";
     }
 }
+
